@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.niuxiaofei.dao.StudentDao">
+    <select id="selectList" resultType="com.niuxiaofei.entity.Student">
+        select * from t_student
+        <where>
+            <if test="name != null">
+                name like '%${name}%'
+            </if>
+            <if test="age !=null">
+                and age=${age}
+            </if>
+        </where>
+    </select>
+    <insert id="insert">
+        insert into t_student(name,age,birthday,header_img,classes_id,provice_id,city_id,area_id,introduction,create_time)
+		values (#{name},#{age},#{birthday},#{header_img},#{classes_id},#{provice_id},#{city_id},#{area_id},#{introduction},now())
+    </insert>
+    <update id="update">
+        update t_student set
+			name=#{name},
+			age=#{age},
+			sex=#{sex},
+			birthday=#{birthday},
+			header_img=#{header_img},
+			classes_id=#{classes_id},
+			provice_id=#{provice_id},
+			city_id=#{city_id},
+			area_id=#{area_id},
+			introduction=#{introduction}
+			where id = #{id}
+    </update>
+</mapper>
